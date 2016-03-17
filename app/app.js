@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var url = require('url');
+var csrf = require('csurf');
 
 var dbURL = process.env.MONGOLAB_URI || "mongodb://localhost/DomoMaker";
 
@@ -43,15 +44,26 @@ app.use(session({
         host: redisURL.hostname,
         port: redisURL.port,
         pass: redisPASS
-    })
+    }),
     secret: 'Domo Arigato',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true
+    }
 }));
 app.set('view engine', 'jade');
 app.set('views', path.join(__dirname, 'views'));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
+app.disable('x-powered-by');
 app.use(cookieParser());
+
+app.use(csrf());
+app.use(function (err, req, res, next) {
+    if (err.code !== 'EBADCSRFTOKEN')
+        return next(err);
+    return;
+})
 
 router(app);
 

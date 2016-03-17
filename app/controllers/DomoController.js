@@ -4,18 +4,18 @@ var models = require('../models');
 var Domo = models.Domo;
 
 var makerPage = function(req, res) {
-    Domo.Model.findByOwner(req.session.account._id, function (err, docs) {
+    Domo.Model.findByOwner(req.session.account._id, function(err, docs) {
         if (err) {
             console.error(err);
-            return res.status(400).json({error: 'Something horrible has happened'});
+            return res.status(400).json({ error: 'Something horrible has happened' });
         }
-        res.render('app', {domos: docs});
+        res.render('app', { csrfToken: req.csrfToken(), domos: docs });
     });
 };
 
-var makeDomo = function (req, res) {
+var makeDomo = function(req, res) {
     if (!req.body.name || !req.body.age) {
-        return res.status(400).json({error: 'Both name and age are required!'});
+        return res.status(400).json({ error: 'Both name and age are required!' });
     }
     var domoData = {
         name: req.body.name,
@@ -26,9 +26,9 @@ var makeDomo = function (req, res) {
     newDomo.save(function(err) {
         if (err) {
             console.error(err);
-            return res.status(400).json({error: 'Something horrible has happened'});
+            return res.status(400).json({ error: 'Something horrible has happened' });
         }
-        res.json({redirect: '/maker'});
+        res.json({ redirect: '/maker' });
     })
 };
 
