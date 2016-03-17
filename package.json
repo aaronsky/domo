@@ -1,11 +1,11 @@
 {
-  "name": "Logins",
+  "name": "domo",
   "version": "1.0.0",
   "description": "A Simple Login Example using Node.js, Mongo, Redis and PBKDF2",
-  "main": "./src/app.js",
+  "main": "./app/app.js",
   "scripts": {
-    "start": "node ./src/app.js",
-    "pretest": "jshint ./src",
+    "start": "node ./app/app.js",
+    "pretest": "jshint ./app",
     "test": "echo \"Tests Complete\""
   },
   "keywords": [
@@ -15,7 +15,7 @@
     "Login",
     "PBKDF2"
   ],
-  "author": "Cody Van De Mark",
+  "author": "Aaron Sky",
   "license": "Apache 2.0",
   "dependencies": {
     "body-parser": "^1.15.0",
@@ -27,9 +27,9 @@
     "express-session": "^1.13.0",
     "helmet": "^1.3.0",
     "jade": "^1.11.0",
+    "lodash": "^4.6.1",
     "mongoose": "^4.4.6",
-    "serve-favicon": "^2.3.0",
-    "underscore": "^1.8.3"
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "jshint": "^2.9.1"
